@@ -1,0 +1,31 @@
+version: '3'
+services:
+  mysql:
+     # container_name: satmysql
+     image: mysql
+     environment:
+       # MYSQL_ROOT_PASSWORD: sathya
+       MYSQL_ALLOW_EMPTY_PASSWORD: "yes"
+       # MYSQL_DATABASE: addressdatabase
+       # IP: DOCKER_HOST_IP
+     ports:
+       - "3306:3306"
+     command: --default-authentication-plugin=mysql_native_password
+     restart: always
+  app:
+     restart: always
+     build: .
+     ports:
+       - "8080:8080"
+     command: mvn clean spring-boot:run
+     depends_on:
+      - mysql
+     links:
+      - mysql:mysqlhost
+     # environment:
+       # IP: DOCKER_HOST_IP
+
+
+
+       
+      
